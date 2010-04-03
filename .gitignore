@@ -1,0 +1,9 @@
+ifacconf_latex/*
+*.aux
+*.dvi
+*.log
+*.toc
+*.eps
+*.dia~
+*.ps
+*.png
