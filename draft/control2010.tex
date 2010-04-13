@@ -11,7 +11,7 @@
 \begin{document}
 \begin{frontmatter}
 
-\title{ Scalable Multi-robot Control Using HEAD: Hybrid Event-driven Architecture with D-Bus  \thanksref{footnoteinfo}} 
+\title{ Scalable Multi-robot Control Using HEAD: Hybrid Event-driven Architecture on D-Bus  \thanksref{footnoteinfo}} 
 % Title, preferably not more than 10 words.
 
 \thanks[footnoteinfo]{This research has been funded by the Engineering and Physical Sciences Research Council (EPSRC), UK, grant reference EP/E061915/1.}
@@ -24,7 +24,7 @@ Allt-yr-yn Campus, Allt-yr-yn Avenue, Newport, NP205DA, UK\\
  (e-mail: Mdomarfaruque.Sarker|Torbjorn.Dahl@newport.ac.uk)}
 
 \begin{abstract}                % Abstract of not more than 250 words.
-Traditional inter-process communication (IPC) mechanisms, such as pipes, shared memory etc., fail to scale well in developing the control applications of a multi-robot system (MRS) that consists of tens of robots and various sensing and monitoring elements interconnected through several host PCs.  In this paper, we have presented a scalable, modular and flexible multi-robot control architecture that uses D-Bus as its underlying IPC method. D-Bus is a standard IPC technology for modern Linux desktop environments. It uses a message bus concepts that facilitates asynchronous data sharing among multiple processes. Here, we have described the design and practical implementation of D-Bus signal interfaces for enabling real-time interactions among  heterogeneous multi-robot control applications. Our experimental results, from a MRS implementation in a manufacturing shop-floor scenario with 16 and 32 e-puck robots, show us the feasibility of using D-Bus in scalable multi-robot control.
+Traditional inter-process communication (IPC) mechanisms, such as pipes, shared memory etc., fail to scale well in developing the control applications for a relatively larger multi-robot system (MRS) that typically consists of tens of robots and various sensing and monitoring elements interconnected through several host PCs.  In this paper, we have presented a scalable, modular and flexible multi-robot control architecture, namely hybrid event-driven architecture on D-Bus (HEAD), that uses D-Bus as its underlying IPC method. D-Bus is a standard IPC technology for modern Linux desktop environments. It typically uses a message bus daemon that facilitates asynchronous data sharing among multiple processes. Here, we have shown that by using only a single type of message, namely D-Bus signal, HEAD can efficeintly enable real-time interactions among  heterogeneous multi-robot control applications. Here we have reported a MRS implementation of a manufacturing shop-floor scenario with 16 and 32 e-puck robots. The simple design of D-Bus signal interfaces of HEAD also shows doubling the number of nodes does not affect the IPC performance. 
 \end{abstract}
 
 \begin{keyword}
