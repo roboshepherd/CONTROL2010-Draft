@@ -2,6 +2,8 @@
 
 \usepackage{graphicx}      % include this line if your document contains figures
 \usepackage{natbib}        % required for bibliography
+
+\def\Section {\S}
 %===============================================================================
 \begin{document}
 \begin{frontmatter}
@@ -40,7 +42,13 @@ D-BUS was designed from scratch to replace CORBA and DCOP and to fulfil the need
 \section{D-Bus Communication Model}
 %%%%%%%%%%%%%%%%%%
 \subsection{D-Bus Overview}
-
+\begin{figure}
+\begin{center}
+\includegraphics[width=7cm,height=3.1cm]{./dia-files/dbus-daemon}    % The printed column width is 8.4 cm.
+\caption{A typical view of D-Bus message bus system } 
+\label{fig:abstract-arch}
+\end{center}
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%
@@ -49,10 +57,33 @@ D-BUS was designed from scratch to replace CORBA and DCOP and to fulfil the need
 %===============================================================================
 \section{Hybrid Event-driven Architecture on D-Bus (HEAD)}
 %%%%%%%%%%%%%%%%%%
-\subsection{Overview of Multi-robot Control} 
-
+\subsection{Overview of Multi-robot Control}
+\begin{figure}
+\begin{center}
+\includegraphics[width=2.5cm,height=2.1cm]{./dia-files/three-layer-arch}    % The printed column width is 8.4 cm.
+\caption{Classical three layer robot control architecture \cite{Gat1997}} 
+\label{fig:abstract-arch}
+\end{center}
+\end{figure}
+%% 
+\begin{figure}
+\begin{center}
+\includegraphics[width=5.5cm,height=2.1cm]{./dia-files/abstract-arch}    % The printed column width is 8.4 cm.
+\caption{Our abstract multi-robot control architecture} 
+\label{fig:abstract-arch}
+\end{center}
+\end{figure}
 %%%%%%%%%%%%%%%%%%
 \subsection{Characteristics of {\em HEAD}}
+\subsection{D-Bus Overview}
+\begin{figure*}
+\begin{center}
+\includegraphics[width=12cm,height=8cm]{./dia-files/concrete-arch}    % The printed column width is 8.4 cm.
+%\centering
+\caption{General outline of {\em HEAD}. Robot-Controller-Client application has been splitted into two parts: one runs locally in server PC and another runs remotely, e.g., in embedded PC} 
+\label{fig:abstract-arch}
+\end{center}
+\end{figure*}
 
 
 %%%%%%%%%%%%%%%%%%
@@ -78,9 +109,27 @@ D-BUS was designed from scratch to replace CORBA and DCOP and to fulfil the need
 
 %===============================================================================
 \section{Implementation of a Multi-robot Manufacturing Scenario}
+\subsection{Characteristics of {\em HEAD}}
+\subsection{D-Bus Overview}
+\begin{figure*}
+\begin{center}
+\includegraphics[width=12cm,height=8cm]{./dia-files/RIL-Expt-Setup3}    % The printed column width is 8.4 cm.
+%\centering
+\caption{An example implementation of {\em HEAD}. Robot-Controller-Clients can talk to each other and exchange task information through D-Bus signals} 
+\label{fig:abstract-arch}
+\end{center}
+\end{figure*}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Multi-robot Task Allocation}
-
+%% 
+\begin{figure}
+\begin{center}
+\includegraphics[width=7.5cm,height=5cm]{./images/PlotUrgencyLog-2010Feb15-171017}    % The printed column width is 8.4 cm.
+\caption{Dynamic changes in task urgencies} 
+\label{fig:task-urgency}
+\end{center}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Setup}
@@ -88,6 +137,32 @@ D-BUS was designed from scratch to replace CORBA and DCOP and to fulfil the need
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Results and Discussions}
+%% 
+\begin{figure}
+\begin{center}
+\includegraphics[width=7.5cm,height=5cm]{./images/Global-SignalingFreqStat}    % The printed column width is 8.4 cm.
+\caption{D-Bus task information signalling frequency of TPA in centralized communication mode} 
+\label{fig:global-freq}
+\end{center}
+\end{figure}
+%% 
+\begin{figure}
+\begin{center}
+%\includegraphics[width=7.5cm,height=5cm]{./images/Robot12-16feb-1-LocalSignals}     
+\includegraphics[width=7.5cm,height=5cm]{./images/Robot12-17feb-3-LocalSignals}
+\caption{Robot12's simultaneous reception of task information signals from peers} 
+\label{fig:robot-freq}
+\end{center}
+\end{figure}
+%%
+\begin{figure}
+\begin{center}
+\includegraphics[width=7.5cm,height=5cm]{./images/Local-500cm-SignalingFreqStat}    % The printed column width is 8.4 cm.
+\caption{Local P2P task information signalling frequency of all robots in decentralized communication mode} 
+\label{fig:global-freq}
+\end{center}
+\end{figure}
+
 
 
 %===============================================================================
@@ -102,36 +177,6 @@ D-BUS was designed from scratch to replace CORBA and DCOP and to fulfil the need
 \bibliography{control2010}             % bib file to produce the bibliography
                                                      % with bibtex (preferred)
                                                    
-%\begin{thebibliography}{xx}  % you can also add the bibliography by hand
-
-%\bibitem[Able(1956)]{Abl:56}
-%B.C. Able.
-%\newblock Nucleic acid content of microscope.
-%\newblock \emph{Nature}, 135:\penalty0 7--9, 1956.
-
-%\bibitem[Able et~al.(1954)Able, Tagg, and Rush]{AbTaRu:54}
-%B.C. Able, R.A. Tagg, and M.~Rush.
-%\newblock Enzyme-catalyzed cellular transanimations.
-%\newblock In A.F. Round, editor, \emph{Advances in Enzymology}, volume~2, pages
-%  125--247. Academic Press, New York, 3rd edition, 1954.
-
-%\bibitem[Keohane(1958)]{Keo:58}
-%R.~Keohane.
-%\newblock \emph{Power and Interdependence: World Politics in Transitions}.
-%\newblock Little, Brown \& Co., Boston, 1958.
-
-%\bibitem[Powers(1985)]{Pow:85}
-%T.~Powers.
-%\newblock Is there a way out?
-%\newblock \emph{Harpers}, pages 35--47, June 1985.
-
-%\bibitem[Soukhanov(1992)]{Heritage:92}
-%A.~H. Soukhanov, editor.
-%\newblock \emph{{The American Heritage. Dictionary of the American Language}}.
-%\newblock Houghton Mifflin Company, 1992.
-
-%\end{thebibliography}
-
 \appendix
 \section{D-Bus Listener Code}    % Each appendix must have a short title.
 
