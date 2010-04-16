@@ -129,9 +129,10 @@ Finally, deliberator layer of HEAD has been described as an application layer th
 D-Bus IPC allows us to completely decouple the interaction of different parts of software components of HEAD. Here we use the term {\em software component} or application to denote the logical groupings of several sub-processes or threads that works under a mother process or main thread (here we use the term thread and process interchangeably). Software components that follows our three-layer architecture for grouping its processes are called {\em native component} whereas existing software applications are called {\em external component}. As shown in Fig. \ref{fig:concrete-arch}, RCC and TPA are native software components of HEAD whereas SwisTrack, a multi-robot tracking tool (\cite{Lochmatter+2008}) used with HEAD, is called an external component.\\
 In order to integrate both native and external components with HEAD. We have designed two separate communication process: a D-Bus signal reception process, SignalListener, and a D-Bus signal emission process, SignalEmitter. Inside a native component both of this process can communicate with data and event management process, DataManager, by using any suitable mechanisms, such as, multi-threading, multi-processing (offered in Python multiprocessing \footnotetext{http://docs.python.org/library/multiprocessing.html}), TCP or any other networking protocol.\\
 Any external component that intend to act as a sensing (actuating) element of HEAD need to implement a SignalEmitter (SignalListener). For example, we extend SwisTrack with D-Bus signal emitting code (aka SignalEmitter) so that it can emit robot pose messages to individual robots D-Bus path under a common interface (uk.ac.newport.SwisTrack). This emitted signal is then caught by SignalListener of individual robot's RCC. Thus the tight-coupling between SwisTrack and RCC has been removed. During run-time SwisTrack can flexibly track variable number of robots and broadcast their corresponding pose messages without any re-compilation of code. Moreover, in worse cases, if SwisTrack or RCC crashes it does not affect any other component at run-time.\\
-Expanding SignalEmitter and SignalListener for more D-Bus signals does not require to make any change the IPC implementation code. Let us first look at how to setup a signal emission process.\\
+Expanding SignalEmitter and SignalListener for more D-Bus signals does not require to make any change the IPC implementation code. Let us first look at how to setup a signal emission process.
+
 \textbf{Steps for setting up signal emission:}\\
-\textbf{Step 1:} Connect to a D-Bus daemon
+\textbf{Step 1:} Connect to a D-Bus daemon. Sample C code:
 \lstset{language=C,basicstyle=\small}
 \begin{lstlisting}
 DBusError error;
@@ -139,8 +140,8 @@ DBusConnection *conn;
 dbus_error_init (&error);
 conn = dbus_bus_get (DBUS_BUS_SESSION, &error);
 \end{lstlisting}
-\textbf{Step 2:} Optionally reserve a D-Bus path or service name (this is not required if the same path is not used by any other process)\\
-\textbf{Step 3:} Send signal to a specified path
+\textbf{Step 2:} Optionally reserve a D-Bus path or service name (this is not required if the same path is not used by any other process).\\
+\textbf{Step 3:} Send signal to a specified path. Sample C code:
 \begin{lstlisting} 
 DBusMessage *message;
 message = dbus_message_new_signal (
@@ -179,8 +180,8 @@ We have performed a multi-robot task allocation experiments in a manufacturing s
 We have developed a system where up to 40 E-puck\footnote{www.e-puck.org} robots can operate together according to the generic rules of the AFM. In \cite{Sarker+2010ants} we reported a set of experiments that were designed to validate AFM by testing the occurrence of convergent MRTA.  As shown in Fig. \ref{fig:setup} (right), our software system consists of a multi-robot tracking system, a task perception assistant (TPA) and robot controller clients (RCC). We have developed an IPC component for SwisTrack that can broadcast id and pose of all robots in real-time over our server's D-Bus interface.\\
 Apart from SwisTrack, we have implemented two major software modules: {\em Task Perception Assistant (TPA)} and {\em Robot Controller Client (RCC)}. They are developed in Python with its state of the art \textit{Multiprocessing} \footnote{http://docs.python.org/library/multiprocessing.html} module. This python module simplifies our need to manage data sharing and synchronization among different sub-processes. As shown in Fig. \ref{fig:setup}, RCC consists of five sub-processes: {\em SignalListener} and {\em SignalEmitter}, interface with SwisTrack D-Bus Server and TPA. {\em DataManager} handles data storage and event management issues. {\em TaskSelector} implements AFM guidelines for task selection . {\em DeviceController} moves a robot to a target task. Bluetooth radio link is used as a communication medium between a RCC and a corresponding E-puck robot.  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Results and Discussions}
-In our experiments, we measured the communication load on our communication system by logging all D-Bus signals. In  centralized communication mode, communication load was almost constant over time.  However in decentralized communication mode, since the emission of robot P2P signals happened asynchronously we found that the overall communication load on the system varied over time. 
+\subsection{Results}
+In our experiments, we recorded the D-Bus communication load on our communication system with varying level of task urgencies (see Fig. \ref{fig:task-urgency}) in both centralized and decentralized communication mode. In  centralized communication mode, communication load was almost constant over time (Fig. \ref{fig:global-freq}).  However in decentralized communication mode, since the emission of robot P2P signals happened asynchronously we found that the overall communication load on the system varied over time (Fig. \ref{fig:local-freq}). In Fig. \ref{fig:robot-freq} we see that a robot was able to listen a maximum of 9 P2P signals simultaneously.
 \begin{figure}
 \begin{center}
 \includegraphics[width=7.5cm,height=5cm]{./images/PlotUrgencyLog-2010Feb15-171017}    % The printed column width is 8.4 cm.
@@ -196,6 +197,14 @@ In our experiments, we measured the communication load on our communication syst
 \label{fig:global-freq}
 \end{center}
 \end{figure}
+%%
+\begin{figure}
+\begin{center}
+\includegraphics[width=7.5cm,height=5cm]{./images/Local-500cm-SignalingFreqStat}    % The printed column width is 8.4 cm.
+\caption{Local P2P task information signalling frequency of all robots in decentralized communication mode} 
+\label{fig:local-freq}
+\end{center}
+\end{figure}
 %% 
 \begin{figure}
 \begin{center}
@@ -203,14 +212,6 @@ In our experiments, we measured the communication load on our communication syst
 \includegraphics[width=7.5cm,height=5cm]{./images/Robot12-17feb-3-LocalSignals}
 \caption{Robot12's simultaneous reception of task information signals from peers} 
 \label{fig:robot-freq}
-\end{center}
-\end{figure}
-%%
-\begin{figure}
-\begin{center}
-\includegraphics[width=7.5cm,height=5cm]{./images/Local-500cm-SignalingFreqStat}    % The printed column width is 8.4 cm.
-\caption{Local P2P task information signalling frequency of all robots in decentralized communication mode} 
-\label{fig:global-freq}
 \end{center}
 \end{figure}
 %===============================================================================
