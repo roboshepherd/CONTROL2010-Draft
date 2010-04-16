@@ -3,7 +3,6 @@ ifacconf_latex/*
 *.dvi
 *.log
 *.toc
-*.eps
 *.dia~
 *.ps
-*.png
+*#
