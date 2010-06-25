@@ -80,7 +80,7 @@
 
 @MISC{Pennington+2010,
   author = {Pennington, H. and Carlsson, A. and Larsson, A.},
-  title = {D-bus specification. http://dbus.freedesktop.org/doc/dbus-specification.html},
+  title = {D-bus specification. http://dbus.freedesktop.org/ doc/dbus-specification.html},
   year = {2010},
   publisher = {URL http://dbus.freedesktop.org/doc/dbus-specification.html}
 }
